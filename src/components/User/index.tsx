@@ -7,6 +7,7 @@ import { setUser } from '../../store/reducers/common/userSingleReducer';
 import Loading from '../Loading';
 
 import { StateTypes } from '../../types';
+import toDate from '../../helpers/toDate';
 
 type UserPropsType = {
     userUrl: string;
@@ -16,26 +17,6 @@ const User = ({ match }: RouteComponentProps<UserPropsType>) => {
     const user = useSelector((state: StateTypes) => state.userSingle.data);
     const isLoading = useSelector((state: StateTypes) => state.userSingle.isLoading);
     const dispatch = useDispatch();
-
-    const toDate = (date: string) => {
-        const newDate = new Date(date);
-        const month = [
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-            'July',
-            'August',
-            'September',
-            'October',
-            'November',
-            'December',
-        ];
-
-        return `${newDate.getFullYear()} ${month[newDate.getMonth()]} ${newDate.getDate()}`;
-    };
 
     const getUser = (): void => {
         const url = match.params.userUrl;
@@ -52,7 +33,7 @@ const User = ({ match }: RouteComponentProps<UserPropsType>) => {
     return (
         <div className="user">
             {isLoading ? (
-                <div>
+                <>
                     {user.map(
                         ({ avatar_url, name, followers, following, created_at, company, email, bio, location, id }) => (
                             <div key={id} className="user__wrap">
@@ -94,7 +75,7 @@ const User = ({ match }: RouteComponentProps<UserPropsType>) => {
                             </div>
                         ),
                     )}
-                </div>
+                </>
             ) : (
                 <>
                     <Loading />
