@@ -1,0 +1,23 @@
+.user-list
+    width: 100vw
+    display: flex
+    flex-direction: column
+    align-items: center
+    &__user-link
+        +font-stile($montserrat, 16px, $green)
+        &:hover
+            text-decoration: underline
+
+    &__wrap,
+    &__item
+        padding: $indent
+        border-bottom: 2px solid $orange
+    &__inner-wrap
+        padding-bottom: $indent
+    &__icon-wrap
+        +size(100px)
+    &__icon
+        border-radius: 50%
+    &__user-name
+        +font-stile($montserrat-bold, 32px, $black)
+        text-decoration: none

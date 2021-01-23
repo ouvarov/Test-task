@@ -1,0 +1,37 @@
+=media($width)
+    @media only screen and (max-width: $width+ px)
+        @content
+
+
+//fonts
+$montserrat: 'Montserrat', sans-serif
+$montserrat-bold: 'Montserrat-Bold', sans-serif
+
+=font-stile($family, $size, $color)
+    color: $color
+    font-size: $size
+    font-family: $family
+
+=size($size)
+    height: $size
+    width: $size
+
+=hover($color)
+    &:hover
+        box-shadow: 0 2px 30px $color
+
+.App
+    height: 100vh
+    width: 100vw
+
+.app
+    min-width: 100vw
+    min-height: 100vh
+    display: grid
+
+.body
+    +size(100%)
+    display: grid
+    grid-template-areas: 'header header header''aside content content'
+    grid-template-columns: 2fr 10fr
+    grid-template-rows: 60px 1fr
