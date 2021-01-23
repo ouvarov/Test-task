@@ -3,7 +3,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setUser } from '../../store/reducers/common/userSingleReducer';
+import { clearUser, setUser } from '../../store/reducers/common/userSingleReducer';
 import Loading from '../Loading';
 
 import { StateTypes } from '../../types';
@@ -29,6 +29,13 @@ const User = ({ match }: RouteComponentProps<UserPropsType>) => {
     useEffect(() => {
         getUser();
     }, [isLoading]);
+
+    useEffect(
+        () => () => {
+            dispatch(clearUser());
+        },
+        [],
+    );
 
     return (
         <div className="user">
@@ -59,12 +66,12 @@ const User = ({ match }: RouteComponentProps<UserPropsType>) => {
                                         <span>company:</span> {company}
                                     </p>
                                 )}
-                                {!!email && (
+                                {email && (
                                     <p className="user__info">
                                         <span>email:</span> {email}
                                     </p>
                                 )}
-                                {!!bio && (
+                                {bio && (
                                     <p className="user__info">
                                         <span>bio:</span> {bio}
                                     </p>

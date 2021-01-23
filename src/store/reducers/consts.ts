@@ -1,5 +1,5 @@
 export enum ACTIVE_TYPE {
     ADD_USERS = 'ADD-USERS',
-    CLEAR_USERS = 'CLEAR-USERS',
     ADD_USER = 'ADD-USER',
+    CLEAR_USER = 'CLEAR-USER',
 }

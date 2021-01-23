@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../Loading';
 import Pagination from '../Pagination';
 
-import { clearUsersList, setUsersList } from '../../store/reducers/common/usersListReducer';
+import { setUsersList } from '../../store/reducers/common/usersListReducer';
 import { StateTypes } from '../../types';
 
 type UserListPropsType = {
@@ -29,9 +29,6 @@ const UsersList = ({ match }: RouteComponentProps<UserListPropsType>) => {
 
     useEffect(() => {
         getUsers();
-        return () => {
-            clearUsersList();
-        };
     }, [urlPrams]);
 
     return (

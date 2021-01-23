@@ -6,12 +6,17 @@ const userSingleReducer = (
     userSingle: UserSingleTypes = { data: [], isLoading: false },
     action: UsersSingleActions,
 ) => {
-    if (action.type === ACTIVE_TYPE.ADD_USER) {
-        return { ...userSingle, data: [action.data], isLoading: true };
+    switch (action.type) {
+        case ACTIVE_TYPE.ADD_USER:
+            return { ...userSingle, data: [action.data], isLoading: true };
+        case ACTIVE_TYPE.CLEAR_USER:
+            return { ...userSingle, data: [], isLoading: false };
+        default:
+            return userSingle;
     }
-    return userSingle;
 };
 
 export const setUser = (data: UserTypes) => ({ type: ACTIVE_TYPE.ADD_USER, data });
+export const clearUser = () => ({ type: ACTIVE_TYPE.CLEAR_USER });
 
 export default userSingleReducer;
