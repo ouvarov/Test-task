@@ -1,32 +1,38 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setUsersList } from '../../store/reducers/common/usersListReducer';
-import { StateTypes } from '../../types';
 import Loading from '../Loading';
+import Pagination from '../Pagination';
 
-const UsersList: React.FunctionComponent = () => {
+import { clearUsersList, setUsersList } from '../../store/reducers/common/usersListReducer';
+import { StateTypes } from '../../types';
+
+type UserListPropsType = {
+    userSort: string;
+};
+
+const UsersList = ({ match }: RouteComponentProps<UserListPropsType>) => {
     const users = useSelector((state: StateTypes) => state.usersList.data);
-    const isLoading = useSelector((state: StateTypes) => state.usersList.loading);
+    const isLoading = useSelector((state: StateTypes) => state.usersList.isLoading);
     const dispatch = useDispatch();
-    const [page, setPage] = useState<number>(1);
+    const urlPrams = match.params.userSort;
 
     const getUsers = (): void => {
-        axios
-            .get(`https://api.github.com/users?page=${page}`)
-            .then(response => {
-                dispatch(setUsersList(response.data));
-            })
-            .catch(error => {
-                alert(error);
-            });
+        const sinceUserId = Number(urlPrams) * 20;
+
+        axios.get(`https://api.github.com/users?per_page=20&since=${sinceUserId}`).then(response => {
+            dispatch(setUsersList(response.data));
+        });
     };
 
     useEffect(() => {
         getUsers();
-    }, [page]);
+        return () => {
+            clearUsersList();
+        };
+    }, [urlPrams]);
 
     return (
         <div className="user-list">
@@ -34,7 +40,7 @@ const UsersList: React.FunctionComponent = () => {
                 <div className="user-list__wrap">
                     {users.map(({ html_url, login, id, avatar_url }) => (
                         <div className="user-list__item" key={id}>
-                            <Link className="user-list__link" to={`/user/${login}`}>
+                            <Link rel="noopener" className="user-list__link" to={`/user/${login}`}>
                                 <div className="user-list__inner-wrap">
                                     <figure className="user-list__icon-wrap">
                                         {avatar_url ? (
@@ -55,8 +61,9 @@ const UsersList: React.FunctionComponent = () => {
             ) : (
                 <Loading />
             )}
+            <Pagination />
         </div>
     );
 };
 
-export default UsersList;
+export default withRouter(UsersList);

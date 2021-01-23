@@ -8,4 +8,5 @@ export type UserTypes = {
     email: string | null;
     bio: string | null;
     location: string;
+    id: number;
 };
