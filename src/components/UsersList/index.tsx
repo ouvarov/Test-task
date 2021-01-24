@@ -34,6 +34,8 @@ const UsersList = ({ match }: RouteComponentProps<UserListPropsType>) => {
     return (
         <div className="user-list">
             {isLoading ? (
+                <Loading />
+            ) : (
                 <div className="user-list__wrap">
                     {users.map(({ html_url, login, id, avatar_url }) => (
                         <div className="user-list__item" key={id}>
@@ -55,8 +57,6 @@ const UsersList = ({ match }: RouteComponentProps<UserListPropsType>) => {
                         </div>
                     ))}
                 </div>
-            ) : (
-                <Loading />
             )}
             <Pagination />
         </div>

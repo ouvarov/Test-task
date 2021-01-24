@@ -40,6 +40,8 @@ const User = ({ match }: RouteComponentProps<UserPropsType>) => {
     return (
         <div className="user">
             {isLoading ? (
+                <Loading />
+            ) : (
                 <>
                     {user.map(
                         ({ avatar_url, name, followers, following, created_at, company, email, bio, location, id }) => (
@@ -84,10 +86,6 @@ const User = ({ match }: RouteComponentProps<UserPropsType>) => {
                             </div>
                         ),
                     )}
-                </>
-            ) : (
-                <>
-                    <Loading />
                 </>
             )}
         </div>
