@@ -76,9 +76,11 @@ const User = ({ match }: RouteComponentProps<UserPropsType>) => {
                                         <span>bio:</span> {bio}
                                     </p>
                                 )}
-                                <p className="user__info">
-                                    <span>location:</span> {location}
-                                </p>
+                                {location && (
+                                    <p className="user__info">
+                                        <span>location:</span> {location}
+                                    </p>
+                                )}
                             </div>
                         ),
                     )}

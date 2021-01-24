@@ -7,6 +7,6 @@ export type UserTypes = {
     company: string | null;
     email: string | null;
     bio: string | null;
-    location: string;
+    location: string | null;
     id: number;
 };
