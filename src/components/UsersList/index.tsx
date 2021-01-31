@@ -1,35 +1,29 @@
 import React, { useEffect } from 'react';
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Loading from '../Loading';
 import Pagination from '../Pagination';
 
-import { setUsersList } from '../../store/reducers/common/usersListReducer';
 import { StateTypes } from '../../types';
+import { setUsersList } from '../../store/actions';
 
-type UserListPropsType = {
-    userSort: string;
-};
-
-const UsersList = ({ match }: RouteComponentProps<UserListPropsType>) => {
+const UsersList: React.FC = () => {
     const users = useSelector((state: StateTypes) => state.usersList.data);
     const isLoading = useSelector((state: StateTypes) => state.usersList.isLoading);
     const dispatch = useDispatch();
-    const urlPrams = match.params.userSort;
+    const { userSort } = useParams<Record<string, string | undefined>>();
 
     const getUsers = (): void => {
-        const sinceUserId = Number(urlPrams) * 20;
-
-        axios.get(`https://api.github.com/users?per_page=20&since=${sinceUserId}`).then(response => {
+        axios.get(`https://api.github.com/users?per_page=20&since=${Number(userSort) * 20}`).then(response => {
             dispatch(setUsersList(response.data));
         });
     };
 
     useEffect(() => {
         getUsers();
-    }, [urlPrams]);
+    }, [userSort]);
 
     return (
         <div className="user-list">
@@ -63,4 +57,4 @@ const UsersList = ({ match }: RouteComponentProps<UserListPropsType>) => {
     );
 };
 
-export default withRouter(UsersList);
+export default UsersList;

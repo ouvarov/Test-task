@@ -7,5 +7,5 @@ export type UsersListActions = {
 
 export type UsersSingleActions = {
     type: string;
-    data: UserSingleTypes[];
+    data: UserSingleTypes;
 };

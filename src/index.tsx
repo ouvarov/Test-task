@@ -2,20 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
-import store from './store/reduser';
+import store from './store/reducer';
 
-const renderEntireTree = (): void => {
-    ReactDOM.render(
-        <React.StrictMode>
-            <Provider store={store}>
-                <App />
-            </Provider>
-        </React.StrictMode>,
-        document.getElementById('root'),
-    );
-};
-
-renderEntireTree();
-store.subscribe(() => renderEntireTree());
-reportWebVitals();
+ReactDOM.render(
+    <React.StrictMode>
+        <Provider store={store}>
+            <App />
+        </Provider>
+    </React.StrictMode>,
+    document.getElementById('root'),
+);

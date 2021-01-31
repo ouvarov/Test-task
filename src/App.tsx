@@ -12,7 +12,7 @@ const App: React.FunctionComponent = () => (
                 <Switch>
                     <Route path="/user/:userUrl" render={() => <User />} />
                     <Route path="/users-list/:userSort" render={() => <UsersList />} />
-                    <Redirect from="/" to="/users-list/1" />
+                    <Redirect from="/" to="/users-list/0" />
                 </Switch>
             </div>
         </BrowserRouter>
